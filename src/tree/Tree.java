@@ -14,7 +14,7 @@ public class Tree<T extends Comparable<T>>{
         }else{
             Node<T> temp = this.root;
             while(true){
-
+                
                 if(temp.getInfo().compareTo(info) == 1){
                     if(temp.getRight() == null){
                         temp.setRight(new Node<T>(info));
@@ -44,11 +44,11 @@ public class Tree<T extends Comparable<T>>{
         return recursiveSearch(this.root, info); 
     }
 
-    public String recursiveSearch(Node<T> start, T info) {
+    private String recursiveSearch(Node<T> start, T info) {
        Node<T> temp = start;
 
         if(temp.getInfo() == info){
-            steps += temp.getInfo();
+           
             return steps;
 
         }else{
@@ -62,10 +62,62 @@ public class Tree<T extends Comparable<T>>{
             }else{
                 temp = temp.getLeft();
                 steps += temp.getInfo() + " - ";
+                
+                
                 recursiveSearch(temp, info);    
             
             }
         }
         return steps;
     }
+    public T remove(T info, Node<T> start){
+        Node<T> temp = start;
+
+        if(temp.getInfo() == info){
+            if(temp.getRight() != null);
+
+        }
+        return null;
+    }
+    public String findTheBiggestCall(){
+        return findTheBiggest(this.root);
+    }
+    private String findTheBiggest(Node<T> start){
+        String value = "";
+        Node<T> temp = start;
+
+        if(temp.getLeft() == null){
+            System.out.println(temp.getInfo());
+            value += temp.getInfo();
+            return value;
+        
+        }else{
+            temp = temp.getLeft();
+            findTheBiggest(temp);
+        }
+        
+        return value;
+    } 
+    public String findTheSmallestCall(){
+        return findTheSmallest(this.root);
+    }
+    private String findTheSmallest(Node<T> start){
+        String value = "";
+        Node<T> temp = start;
+
+        if(temp.getRight() == null){
+            System.out.println(temp.getInfo());
+            value += temp.getInfo();
+            return value;
+        
+        }else{
+            temp = temp.getRight();
+            findTheSmallest(temp);
+        }
+        
+        return value;
+    } 
 }
+
+
+

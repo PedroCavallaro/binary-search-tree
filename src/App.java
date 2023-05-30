@@ -10,13 +10,15 @@ public class App {
         tree.insert(45);
         tree.insert(39);
         tree.insert(65);
+        tree.insert(100);
         tree.insert(75);
         tree.insert(20);
         tree.insert(23);
         tree.insert(19);
         tree.insert(18);
         
-        
-        System.out.println(tree.search(18));
+        System.out.println(tree.findTheSmallestCall());
+        System.out.println(tree.findTheBiggestCall());
+        System.out.println(tree.search(100));
     }
 }

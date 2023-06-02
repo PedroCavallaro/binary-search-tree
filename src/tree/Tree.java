@@ -15,7 +15,7 @@ public class Tree<T extends Comparable<T>>{
             Node<T> temp = this.root;
             while(true){
                 
-                if(temp.getInfo().compareTo(info) == 1){
+                if(info.compareTo(temp.getInfo()) == 1){
                     if(temp.getRight() == null){
                         temp.setRight(new Node<T>(info));
                         temp.getRight().setTop(temp);
@@ -47,25 +47,27 @@ public class Tree<T extends Comparable<T>>{
     private String recursiveSearch(Node<T> start, T info) {
        Node<T> temp = start;
 
-        if(temp.getInfo() == info){
-           
-            return steps;
-
-        }else{
-
-            if(temp.getInfo().compareTo(info) == 1){
-                temp = temp.getRight();  
-                steps += temp.getInfo() + " - ";
-                
-                recursiveSearch(temp, info);
+        if((temp != null) && (info != null)){    
+            if(temp.getInfo() == info){
+            
+                return steps;
 
             }else{
-                temp = temp.getLeft();
-                steps += temp.getInfo() + " - ";
+
+                if(info.compareTo(temp.getInfo()) == 1){
+                    temp = temp.getRight();  
+                    steps += temp.getInfo() + " - ";
+                    
+                    recursiveSearch(temp, info);
+
+                }else{
+                    temp = temp.getLeft();
+                    steps += temp.getInfo() + " - ";
+                    
+                    
+                    recursiveSearch(temp, info);    
                 
-                
-                recursiveSearch(temp, info);    
-            
+                }
             }
         }
         return steps;
@@ -79,10 +81,10 @@ public class Tree<T extends Comparable<T>>{
         }
         return null;
     }
-    public String findTheBiggestCall(){
-        return findTheBiggest(this.root);
+    public String findTheSmallestCall(){
+        return findTheSmallest(this.root);
     }
-    private String findTheBiggest(Node<T> start){
+    private String findTheSmallest(Node<T> start){
         String value = "";
         Node<T> temp = start;
 
@@ -93,15 +95,15 @@ public class Tree<T extends Comparable<T>>{
         
         }else{
             temp = temp.getLeft();
-            findTheBiggest(temp);
+            findTheSmallest(temp);
         }
         
         return value;
     } 
-    public String findTheSmallestCall(){
-        return findTheSmallest(this.root);
+    public String findTheBiggestCall(){
+        return findTheBiggest(this.root);
     }
-    private String findTheSmallest(Node<T> start){
+    private String findTheBiggest(Node<T> start){
         String value = "";
         Node<T> temp = start;
 
@@ -112,7 +114,7 @@ public class Tree<T extends Comparable<T>>{
         
         }else{
             temp = temp.getRight();
-            findTheSmallest(temp);
+            findTheBiggest(temp);
         }
         
         return value;

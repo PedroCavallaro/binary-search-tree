@@ -15,7 +15,7 @@ public class Tree<T extends Comparable<T>>{
             Node<T> temp = this.root;
             while(true){
                 
-                if(info.compareTo(temp.getInfo()) == 1){
+                if(info.compareTo(temp.getInfo()) > 0   ){
                     if(temp.getRight() == null){
                         temp.setRight(new Node<T>(info));
                         temp.getRight().setTop(temp);
@@ -54,15 +54,15 @@ public class Tree<T extends Comparable<T>>{
 
             }else{
 
-                if(info.compareTo(temp.getInfo()) == 1){
+                if(info.compareTo(temp.getInfo()) > 0){
                     temp = temp.getRight();  
-                    steps += temp.getInfo() + " - ";
+                    steps += temp.getInfo() + "  ";
                     
                     recursiveSearch(temp, info);
 
                 }else{
                     temp = temp.getLeft();
-                    steps += temp.getInfo() + " - ";
+                    steps += temp.getInfo() + "  ";
                     
                     
                     recursiveSearch(temp, info);    
@@ -72,53 +72,128 @@ public class Tree<T extends Comparable<T>>{
         }
         return steps;
     }
-    public T remove(T info, Node<T> start){
-        Node<T> temp = start;
+    // Maior e menor de forma recursiva
+    // public Node<T> findTheSmallestCall(Node<T> start){
+    //     return findTheSmallest(start);
+    // }
+    // private Node<T> findTheSmallest(Node<T> start){
+    //     String value = "";
+    //     Node<T> temp = start;
 
-        if(temp.getInfo() == info){
-            if(temp.getRight() != null);
+    //     if(temp.getLeft() == null){
+    //         System.out.println(temp.getInfo());
+    //         value += temp.getInfo();
+    //         return temp;
+        
+    //     }else{
+    //         temp = temp.getLeft();
+    //         findTheSmallest(temp);
+    //     }
+        
+    //     return temp;
+    // } 
+    // public Node<T> findTheBiggestCall(Node<T> start){
+    //     return findTheBiggest(start);
+    // }
+    // public Node<T> findTheBiggest(Node<T> start){
+    //     String value = "";
+    //     if(start == null){
+    //         start = this.root;
+    //     }
+    //     Node<T> temp = start;
 
+    //     if(temp.getRight() == null){
+    //         System.out.println(temp.getInfo());
+    //         value += temp.getInfo();
+    //         return temp;
+        
+    //     }else{
+    //         temp = temp.getRight();
+    //         findTheBiggest(temp);
+    //     }
+        
+    //     return temp;
+    // } 
+
+    public Node<T> remove(T info, Node<T> temp){
+        if(this.root == null){
+            return null;
         }
-        return null;
-    }
-    public String findTheSmallestCall(){
-        return findTheSmallest(this.root);
-    }
-    private String findTheSmallest(Node<T> start){
-        String value = "";
-        Node<T> temp = start;
+        if(temp == null){
+            temp = this.root;
+        }
 
-        if(temp.getLeft() == null){
-            System.out.println(temp.getInfo());
-            value += temp.getInfo();
-            return value;
+        if(info.compareTo(temp.getInfo()) < 0){
+            temp.setLeft(remove(info, temp.getLeft()));
+        
+        }else if(info.compareTo(temp.getInfo()) > 0){
+            temp.setRight(remove(info, temp.getRight()));
         
         }else{
-            temp = temp.getLeft();
-            findTheSmallest(temp);
+
+            if(temp.getLeft() == null){
+                return temp.getRight();
+
+            }else if(temp.getRight() == null){
+                return temp.getLeft();
+            }else{
+                Node<T> sub = new Node<T>(this.findB2(temp.getLeft()));
+                temp.setInfo(sub.getInfo());
+                temp.setRight(remove(sub.getInfo(), temp.getRight()));
+            }
         }
-        
-        return value;
-    } 
-    public String findTheBiggestCall(){
-        return findTheBiggest(this.root);
+
+        return temp;
     }
-    private String findTheBiggest(Node<T> start){
-        String value = "";
+
+    public T findB2(Node<T> start){
+        if(start == null){
+            start = this.root;
+        }
         Node<T> temp = start;
 
-        if(temp.getRight() == null){
-            System.out.println(temp.getInfo());
-            value += temp.getInfo();
-            return value;
-        
-        }else{
+        while(temp.getRight() != null){
             temp = temp.getRight();
-            findTheBiggest(temp);
         }
-        
-        return value;
-    } 
+        return temp.getInfo();
+    }
+
+    public T findS2(Node<T> start){
+        if(start == null){
+            start = this.root;
+        }
+        Node<T> temp = start;
+
+        while(temp.getLeft() != null){
+            temp = temp.getLeft();
+        }
+        return temp.getInfo();
+    }
+    public String printLeft(){
+        String values = "" + this.root.getInfo() + " ";
+        if(this.root == null){
+            return "Não há nenhum elemento a ser removido";
+        }
+        Node<T> temp = this.root;
+        while(temp.getLeft() != null){
+            temp = temp.getLeft();
+            values += temp.getInfo() + " ";
+        }
+        return values;
+    }
+    public String printRight(){
+        String values = "" + this.root.getInfo() + " ";
+        if(this.root == null){
+            return "Não há nenhum elemento a ser removido";
+        }
+        Node<T> temp = this.root;
+        while(temp.getRight() != null){
+            temp = temp.getRight();
+            values += temp.getInfo() + " ";
+        }
+        return values;
+    }
+    
 }
 
 

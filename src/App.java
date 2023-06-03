@@ -17,8 +17,15 @@ public class App {
         tree.insert(19);
         tree.insert(18);
         
-        System.out.println(tree.findTheSmallestCall());
-        System.out.println(tree.findTheBiggestCall());
-        System.out.println(tree.search(100));
+
+        System.out.println("Maximo: " + tree.findB2(null));
+        System.out.println("Minimo: " + tree.findS2(null));
+        System.out.println(tree.search(18));
+        tree.remove(60, null);
+        // System.out.println(tree.findB2(null));
+        System.out.println("Direita: " + tree.printLeft());
+        System.out.println("Esquerda: "+ tree.printRight());
+
+        
     }
 }
